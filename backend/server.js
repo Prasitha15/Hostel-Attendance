@@ -6,6 +6,12 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cron from "node-cron";
 import util from "util";
+require("dotenv").config();
+const port = process.env.PORT || 10000;
+
+app.listen(port, () => {
+  console.log("Server running on port " + port);
+});
 
 const app = express();
 const PORT = 5000;
