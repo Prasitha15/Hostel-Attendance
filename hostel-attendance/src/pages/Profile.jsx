@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Styles/Profile.css";
-
+const API_URL = process.env.REACT_APP_API_URL;
 const Profile = () => {
   const [warden, setWarden] = useState(null);
   const [formData, setFormData] = useState({});
@@ -20,7 +20,8 @@ const Profile = () => {
     const storedWarden = localStorage.getItem("warden");
     if (storedWarden) {
       const wardenData = JSON.parse(storedWarden);
-      fetch(`http://localhost:5000/warden/${wardenData.id}`)
+      fetch(`${API_URL}/warden/${wardenData.id}`)
+
         .then((res) => res.json())
         .then((data) => {
           setWarden(data);
@@ -38,7 +39,7 @@ const Profile = () => {
   };
 
   const handleSave = () => {
-    fetch(`http://localhost:5000/warden/${warden.id}`, {
+    fetch(`${API_URL}/warden/${warden.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -58,7 +59,7 @@ const Profile = () => {
 
   const handleDelete = () => {
     if (!window.confirm("Are you sure you want to delete your profile?")) return;
-    fetch(`http://localhost:5000/warden/${warden.id}`, { method: "DELETE" })
+    fetch(`${API_URL}/warden/${warden.id}`, { method: "DELETE" })
       .then((res) => res.json())
       .then((data) => {
         alert(data.message);
@@ -78,7 +79,7 @@ const Profile = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/warden/${warden.id}/change-password`, {
+    fetch(`${API_URL}/warden/${warden.id}/change-password`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(passwordData),

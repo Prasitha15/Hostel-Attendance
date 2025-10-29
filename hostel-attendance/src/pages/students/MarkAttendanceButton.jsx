@@ -12,6 +12,7 @@ export default function MarkAttendanceButton({ wardenEnabled, onMarkedPresent })
   const [status, setStatus] = useState("Not Marked");
   const [error, setError] = useState("");
 
+  const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
@@ -37,7 +38,7 @@ const checkLocation = async (position) => {
 
   if (distance <= NEC_HOSTEL_LOCATION.radius) {
     try {
-      const res = await fetch("http://localhost:5000/api/mark-attendance", {
+      const res = await fetch("${API_URL}/api/mark-attendance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -3,7 +3,7 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import "../Styles/WardenStayRequests.css"; // ✅ Import your CSS
 
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default function WardenStayRequests() {
   const [requests, setRequests] = useState([]);

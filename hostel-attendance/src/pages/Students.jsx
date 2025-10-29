@@ -18,12 +18,12 @@ const Students = ({ isWarden = true }) => {
     { value: "blockNumber", label: "Block No" },
     
   ];
-
+const API_URL = process.env.REACT_APP_API_URL;
   // Fetch attendance status once on mount
   useEffect(() => {
     const fetchAttendanceStatus = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/attendance-status");
+const res = await fetch(`${API_URL}/api/attendance-status`);
         const data = await res.json();
         setAttendanceEnabled(data.attendanceEnabled === true);
       } catch (err) {
@@ -51,7 +51,7 @@ const Students = ({ isWarden = true }) => {
   const handleAttendanceToggle = async () => {
     try {
       const enable = !attendanceEnabled;
-      const res = await fetch("http://localhost:5000/api/enable-attendance", {
+      const res = await fetch("${API_URL}/api/enable-attendance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ enabled: enable ? "Yes" : "No" }),

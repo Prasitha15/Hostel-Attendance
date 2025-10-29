@@ -6,12 +6,12 @@ import "./studentprofile.css";
 
 export default function ProfilePage() {
   const [student, setStudent] = useState(null);
-
+const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const studentId = localStorage.getItem("studentId");
 
     if (studentId) {
-      fetch(`http://localhost:5000/student/profile/${studentId}`)
+      fetch(`${API_URL}/student/profile/${studentId}`)
         .then((res) => res.json())
         .then((data) => setStudent(data))
         .catch((err) => console.error("Error fetching profile:", err));

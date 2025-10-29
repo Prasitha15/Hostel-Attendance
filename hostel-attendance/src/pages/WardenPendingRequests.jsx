@@ -161,7 +161,7 @@ export default function WardenPendingRequests() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [approvingId, setApprovingId] = useState(null); // prevents double click
-
+const API_URL = process.env.REACT_APP_API_URL;
   // Fetch pending requests
   useEffect(() => {
     const fetchPendingRequests = async () => {
@@ -169,7 +169,7 @@ export default function WardenPendingRequests() {
       setError(null);
 
       try {
-        const res = await fetch("http://localhost:5000/api/pending-requests");
+        const res = await fetch("${API_URL}/api/pending-requests");
         if (!res.ok) throw new Error("Failed to fetch pending requests");
 
         const data = await res.json();
@@ -197,7 +197,7 @@ export default function WardenPendingRequests() {
     setApprovingId(id);
 
     try {
-      const res = await fetch(`http://localhost:5000/api/approve-request/${id}`, {
+      const res = await fetch(`${API_URL}/api/approve-request/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "approved" }),

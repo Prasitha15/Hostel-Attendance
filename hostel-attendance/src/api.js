@@ -2,7 +2,7 @@
 
 // src/api.js
 import axios from "axios";
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL;
 // ------------------ Warden APIs ------------------
 
 export async function registerWarden(data) {
@@ -256,25 +256,25 @@ export async function resetPassword(email, newPassword) {
   }
 }
 export const fetchAttendanceStats = async () => {
-  const res = await fetch("http://localhost:5000/api/attendance-stats");
+  const res = await fetch("${API_URL}/api/attendance-stats");
   return await res.json();
 };
 
 export const fetchAttendanceOverall = async () => {
-  const res = await fetch("http://localhost:5000/api/attendance-overall");
+  const res = await fetch("${API_URL}/api/attendance-overall");
   return await res.json();
 };
 // leave
 // Fetch all pending leave/outing requests
 export const fetchPendingRequests = async () => {
-  const res = await fetch("http://localhost:5000/api/pending-requests");
+  const res = await fetch("${API_URL}/api/pending-requests");
   if (!res.ok) throw new Error("Failed to fetch requests");
   return res.json();
 };
 
 // Approve a specific request
 export const approveRequest = async (requestId) => {
-  const res = await fetch(`http://localhost:5000/api/approve-request/${requestId}`, {
+  const res = await fetch(`${API_URL}/api/approve-request/${requestId}`, {
     method: "POST",
   });
   if (!res.ok) throw new Error("Failed to approve request");

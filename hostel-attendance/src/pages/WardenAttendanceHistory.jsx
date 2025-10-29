@@ -16,12 +16,12 @@ export default function WardenAttendanceHistory() {
   });
   const [attendanceData, setAttendanceData] = useState([]);
   const [loading, setLoading] = useState(false);
-
+const API_URL = process.env.REACT_APP_API_URL;
   // Fetch attendance history from backend
   const fetchAttendance = async () => {
     setLoading(true);
     try {
-      let url = `http://localhost:5000/api/attendance-history?`;
+      let url = `${API_URL}/api/attendance-history?`;
 
       // Attach only non-empty filters to query
       Object.entries(filters).forEach(([key, value]) => {

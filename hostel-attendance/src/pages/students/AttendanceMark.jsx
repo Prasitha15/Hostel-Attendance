@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export default function AttendanceMark() {
   const [message, setMessage] = useState("Marking attendance...");
-
+const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const markAttendance = async () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -14,7 +14,7 @@ export default function AttendanceMark() {
       }
 
       try {
-        const res = await fetch("http://localhost:5000/api/mark-attendance", {
+        const res = await fetch("${API_URL}/api/mark-attendance", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ studentId }),

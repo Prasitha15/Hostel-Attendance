@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../Styles/WardenCreateHoliday.css"; // optional, for styling
 
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default function WardenCreateHoliday({ wardenName }) {
   const [title, setTitle] = useState("");

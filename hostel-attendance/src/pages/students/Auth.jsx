@@ -8,7 +8,7 @@ import Popup from "../../components/Popup.jsx";
 
 
 export default function Auth({ onLogin }) {
-
+const API_URL = process.env.REACT_APP_API_URL;
   const [popup, setPopup] = useState({ show: false, message: "", type: "" });
 
   const [mode, setMode] = useState("login"); 
@@ -243,7 +243,7 @@ React.useEffect(() => {
     setLoading(true);
  try {
   if (mode === "forgot") {
-    const res = await fetch("http://localhost:5000/student/forgot-password", {
+    const res = await fetch("${API_URL}/student/forgot-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: formData.email }),
@@ -266,7 +266,7 @@ React.useEffect(() => {
           return;
         }
 
-        const res = await fetch("http://localhost:5000/student/request-otp", {
+        const res = await fetch("${API_URL}/student/request-otp", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -280,7 +280,7 @@ React.useEffect(() => {
           toast.error("❌ " + (data.error || "Failed to send OTP"));
         }
       } else {
-        const res = await fetch("http://localhost:5000/student/verify-otp", {
+        const res = await fetch("${API_URL}/student/verify-otp", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: formData.email, otp }),
@@ -305,7 +305,7 @@ React.useEffect(() => {
 
 
   if (mode === "login") {
-    const res = await fetch("http://localhost:5000/student/login", {
+    const res = await fetch("${API_URL}/student/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

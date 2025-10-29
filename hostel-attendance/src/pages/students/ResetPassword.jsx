@@ -10,6 +10,7 @@ export default function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const API_URL = process.env.REACT_APP_API_URL;
   // Extract token from URL (example: /reset-password/:token)
   useEffect(() => {
     if (location.pathname.startsWith("/reset-password/")) {
@@ -27,7 +28,7 @@ export default function ResetPassword() {
 
   setLoading(true);
   try {
-    const res = await fetch(`http://localhost:5000/student/reset-password/${token}`, {
+    const res = await fetch(`${API_URL}/student/reset-password/${token}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ password: newPassword }),

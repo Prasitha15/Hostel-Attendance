@@ -3,8 +3,11 @@ import StatCard from "../components/StatCard";
 import AttendanceChart from "../components/AttendanceChart";
 import ActivityList from "../components/ActivityList";
 import "../styles/Dashboard.css";
+const API_URL = process.env.REACT_APP_API_URL;
 
-const API_URL = "http://localhost:5000";
+const res = await fetch(`${API_URL}/students/stats`);
+
+//const API_URL = "http://localhost:5000";
 
 function Dashboard({ onLogout }) {
   const [stats, setStats] = useState({

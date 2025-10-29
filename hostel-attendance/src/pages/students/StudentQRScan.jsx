@@ -6,7 +6,7 @@ const StudentQRScan = () => {
   const [message, setMessage] = useState("");
   const [scannerStarted, setScannerStarted] = useState(false);
   const scannerRef = useRef(null);
-
+const API_URL = process.env.REACT_APP_API_URL;
   const startScanner = async () => {
     setMessage("⌛ Starting scanner...");
     const scanner = new Html5Qrcode("reader");
@@ -26,7 +26,7 @@ const StudentQRScan = () => {
           setScanResult(decodedText);
 
           try {
-            const res = await fetch("http://localhost:5000/api/mark-attendance", {
+            const res = await fetch("${API_URL}/api/mark-attendance", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({

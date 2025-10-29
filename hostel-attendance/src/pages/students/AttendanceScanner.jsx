@@ -1,7 +1,7 @@
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { useState } from 'react';
 import AttendanceConfirmation from './AttendanceConfirmation'; // Import your confirmation component
-
+const API_URL = process.env.REACT_APP_API_URL;
 const AttendanceScanner = () => {
   const [scanResult, setScanResult] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -15,7 +15,7 @@ const AttendanceScanner = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/api/mark-attendance", {
+      const response = await fetch("${API_URL}/api/mark-attendance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentId, qrData: scanData }),

@@ -34,7 +34,7 @@ export default function Attendance() {
   const [leaveTo, setLeaveTo] = useState("");
   const [leaveType, setLeaveType] = useState("full-day");
   const [leaveReason, setLeaveReason] = useState("");
-
+const API_URL = process.env.REACT_APP_API_URL;
   // --- Clock ---
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -51,7 +51,7 @@ export default function Attendance() {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/attendance-status");
+        const res = await fetch("${API_URL}/api/attendance-status");
         const data = await res.json();
         setAttendanceEnabled(data.attendanceEnabled ?? false);
       } catch (err) {
@@ -72,7 +72,7 @@ export default function Attendance() {
 
       try {
         const res = await fetch(
-          `http://localhost:5000/api/attendance-by-student?studentId=${studentId}&month=${month}&year=${year}`
+          `${API_URL}/api/attendance-by-student?studentId=${studentId}&month=${month}&year=${year}`
         );
         const data = await res.json();
 
@@ -112,7 +112,7 @@ export default function Attendance() {
 
   const fetchQR = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/get-active-qr/${studentId}`);
+      const res = await fetch(`${API_URL}/api/get-active-qr/${studentId}`);
       const data = await res.json();
 
       if (data.active && data.qrValue) {
@@ -139,7 +139,7 @@ export default function Attendance() {
     if (!studentId) return alert("Student ID not found.");
 
     try {
-      const res = await fetch("http://localhost:5000/api/leave-request", {
+      const res = await fetch("${API_URL}/api/leave-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -186,7 +186,7 @@ export default function Attendance() {
 
               {studentId && dailyQR ? (
                 <QRCodeCanvas
-                  value={`http://localhost:5000/api/mark-attendance?id=${studentId}&qrValue=${dailyQR}`}
+                  value={`${API_URL}/api/mark-attendance?id=${studentId}&qrValue=${dailyQR}`}
                   size={200}
                   bgColor="#ffffff"
                   fgColor="#2563eb"

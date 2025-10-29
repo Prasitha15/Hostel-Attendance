@@ -14,7 +14,7 @@ export default function History() {
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+const API_URL = process.env.REACT_APP_API_URL;
   const studentId = localStorage.getItem("studentId") || 1;
   const [stats, setStats] = useState({
     totalDays: 0,
@@ -28,10 +28,10 @@ export default function History() {
       setLoading(true);
       setError("");
       try {
-        const res = await axios.get(`http://localhost:5000/api/attendance/${studentId}`);
+        const res = await axios.get(`${API_URL}/api/attendance/${studentId}`);
         setRecords(res.data);
 
-        const statsRes = await axios.get(`http://localhost:5000/api/attendance-stats/${studentId}`);
+        const statsRes = await axios.get(`${API_URL}/api/attendance-stats/${studentId}`);
         setStats(statsRes.data);
       } catch (err) {
         console.error("❌ Error fetching attendance:", err);

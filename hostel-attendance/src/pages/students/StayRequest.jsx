@@ -4,7 +4,7 @@ import Stu_sidebar from "./Stu_sidebar";
 import { FaHome, FaCalendarAlt, FaEdit, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 import "./studentstayrequest.css";
 
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default function StayRequest() {
   const [holidays, setHolidays] = useState([]);

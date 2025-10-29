@@ -42,12 +42,12 @@ export default function StudentDashboard() {
   const [roomNumber, setRoomNumber] = useState("");
   const [blockNumber, setBlockNumber] = useState("");
   const studentId = localStorage.getItem("studentId");
-
+const API_URL = process.env.REACT_APP_API_URL;
   // 🟦 General Notifications
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/notifications");
+        const res = await fetch("${API_URL}/api/notifications");
         let data = await res.json();
         const todayNotifications = data.filter((n) => isToday(n.created_at));
         setNotifications(todayNotifications.slice(0, 5));
@@ -68,7 +68,7 @@ export default function StudentDashboard() {
     const fetchLeaveNotifications = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/student-leave-notifications/${studentId}`
+          `${API_URL}/api/student-leave-notifications/${studentId}`
         );
         let data = await res.json();
         const todayLeaveNotifications = data.filter((n) =>
@@ -90,7 +90,7 @@ useEffect(() => {
   const fetchStayNotifications = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/student-stay-notifications`
+        `${API_URL}/api/student-stay-notifications`
       );
       const data = await res.json();
       setStayNotifications(data.slice(0, 5)); // latest 5 notifications
@@ -108,7 +108,7 @@ useEffect(() => {
   // 🧍 Load student profile data
   useEffect(() => {
     if (studentId) {
-      fetch(`http://localhost:5000/student/profile/${studentId}`)
+      fetch(`${API_URL}/student/profile/${studentId}`)
         .then((res) => res.json())
         .then((data) => {
           const currentYear = getCurrentStudentYear(data.yearOfAdmission);
@@ -123,7 +123,7 @@ useEffect(() => {
   const handleSaveHostel = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/student/profile/${student.id}`,
+        `${API_URL}/student/profile/${student.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
