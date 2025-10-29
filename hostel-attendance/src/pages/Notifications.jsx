@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Notifications.css";
+import "../styles/notifications.css";
 import { fetchNotifications, addNotification } from "../api";
 import NotificationItem from "../components/NotificationItem";
 import Sidebar from "../components/Sidebar";
